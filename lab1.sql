@@ -1,7 +1,7 @@
--- CREATE DATABASE labs;
--- CREATE USER yurii;
--- ALTER USER yurii WITH PASSWORD 'mysqlpass';
--- GRANT ALL PRIVILEGES ON DATABASE "labs" to yurii;
+CREATE DATABASE labs;
+CREATE USER yurii;
+ALTER USER yurii WITH PASSWORD 'mysqlpass';
+GRANT ALL PRIVILEGES ON DATABASE "labs" to yurii;
 \c labs;
 create table drivers (
 	id INT,
