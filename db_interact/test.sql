@@ -1,0 +1,3 @@
+SELECT * FROM items LIMIT 10;
+SELECT * FROM drivers LIMIT 10;
+SELECT * FROM clients LIMIT 10;
