@@ -19,7 +19,7 @@ class Psql:
         self.cursor.execute(text)
         data = self.cursor.fetchall()
         print(tabulate(data, tablefmt='orgtbl'))
-        self.cursor.close()
+        # self.cursor.close()
 
     def get_data_file(self):
         file_name = input("Paste absolute SQL file location -->")
@@ -29,9 +29,23 @@ class Psql:
                 data = self.cursor.fetchall()
                 print(tabulate(data, tablefmt='orgtbl'))
                 
-        self.cursor.close()
+        # self.cursor.close()
+
+    def execute(self, command):
+        self.cursor.execute(command)
+        data = self.cursor.fetchall()
+        # self.cursor.close()
+        return data
+
+    def get_table_data(self, table_name):
+        self.cursor.execute(f"SELECT * FROM {table_name};")
+        colnames = [desc[0] for desc in self.cursor.description]
+        data = self.cursor.fetchall()
+        return [colnames, data]
+        # self.cursor.close()
 
     def __del__(self):
+        self.cursor.close()
         self.conn.close()
 
 if __name__ == "__main__":
