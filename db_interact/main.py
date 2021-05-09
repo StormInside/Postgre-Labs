@@ -32,15 +32,19 @@ class Psql:
         # self.cursor.close()
 
     def execute(self, command):
-        self.cursor.execute(command)
-        data = self.cursor.fetchall()
-        # self.cursor.close()
+        try:
+            self.cursor.execute(command)
+            data = self.cursor.fetchall()
+        except psycopg2.ProgrammingError:
+            return False
+
         return data
 
     def get_table_data(self, table_name):
-        self.cursor.execute(f"SELECT * FROM {table_name};")
+        self.cursor.execute(f"SELECT * FROM {table_name} ORDER BY id;")
         colnames = [desc[0] for desc in self.cursor.description]
         data = self.cursor.fetchall()
+        print([colnames, data])
         return [colnames, data]
         # self.cursor.close()
 
@@ -54,4 +58,4 @@ if __name__ == "__main__":
                 user='administrator',
                 host='localhost')
 
-    psql.get_data_file()
+    psql.get_table_data("items")
